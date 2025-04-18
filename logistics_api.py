@@ -19,7 +19,12 @@ class Shipment():
     weight: float
 
 class ShipmentManager():
-
+    """Implements the various API-like methods for shipment management
+     
+        Information is stored on a dictionary, using the class `Shipment`.
+        <br>The methods include `create`, `get`, `update_status`, `cancel` and `list_by_destination`.
+    """   
+    
     # CONSTRUCTOR FOR THE CLASS
 
     def __init__(self) -> None:
