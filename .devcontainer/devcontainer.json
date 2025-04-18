@@ -1,0 +1,15 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+	"name": "openSUSE tumbleweed",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"remoteUser": "root",
+
+	// "forwardPorts": [],
+
+	"postCreateCommand":"zypper update -y"
+
+}
+
+

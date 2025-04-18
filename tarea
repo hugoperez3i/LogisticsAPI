@@ -1,0 +1,115 @@
+30-Minute Programming Test - Logistics API (Any Language)
+Welcome to the 30-minute technical test! This test evaluates programming skills by
+implementing a logistics-focused API simulation for managing shipments. Candidates
+may use any programming language of their choice (e.g., Python, C#, Java, JavaScript,
+etc.). The test focuses on the functional scope of creating, retrieving, updating,
+canceling, and listing shipments in a logistics system.
+Instructions
+• Time: 30 minutes.
+• Language: Use any programming language. Clearly indicate the chosen language
+in your submission.
+• Environment: Use only the standard library of your chosen language (no external
+frameworks or dependencies).
+• Submission: Submit a functional code file (e.g., .py, .cs, .java, .js) or paste the
+code into the platform. Include brief comments explaining the core logic.
+• Evaluation Criteria:
+o Correctness: Does the code implement all required operations
+accurately?
+o Efficiency: Are operations optimized for time and space complexity?
+o Robustness: Does the code handle edge cases (e.g., invalid inputs,
+missing shipments)?
+o Readability: Is the code clear, with meaningful names and adherence to
+language conventions?
+Task: Shipment Manager Implementation (+- 30 minutes)
+Implement a ShipmentManager class (or equivalent, e.g., module, struct, depending on
+the language) that simulates a logistics API for managing shipments. Each shipment
+has:
+• A unique tracking ID (string).
+• A destination (string).
+• A status (one of: "Pending", "InTransit", "Delivered"; use an enum, string, or
+equivalent depending on the language).
+• A weight (floating-point number, in kilograms).
+The implementation must support operations to create, retrieve, update, cancel, and list
+shipments.Functional Scope
+The ShipmentManager must provide the following operations:
+1. Create:
+o Signature: create(trackingId, destination, weight) -> boolean
+o Creates a shipment with the given tracking ID, destination, and weight.
+The initial status is "Pending".
+o Returns true if creation succeeds, false if the tracking ID already exists or
+the weight is non-positive (≤ 0).
+o Example: create("SHIP001", "New York", 10.5) → true.
+2. Get:
+o Signature: get(trackingId) -> shipment | null
+o Returns the shipment's details (as an object, dictionary, or equivalent with
+fields: tracking ID, destination, status, weight).
+o Returns null (or language equivalent, e.g., None in Python) if the tracking
+ID does not exist.
+o Example: get("SHIP001") → { trackingId: "SHIP001", destination: "New
+York", status: "Pending", weight: 10.5 }.
+3. Update Status:
+o Signature: updateStatus(trackingId, status) -> boolean
+o Updates the status of the shipment with the given tracking ID to "Pending",
+"InTransit", or "Delivered".
+o Returns true if the update succeeds, false if the tracking ID does not exist
+or the status is invalid.
+o Example: updateStatus("SHIP001", "InTransit") → true.
+4. Cancel:
+o Signature: cancel(trackingId) -> boolean
+o Cancels a shipment by removing it, but only if its status is "Pending".
+o Returns true if cancellation succeeds, false if the tracking ID does not
+exist or the shipment is not "Pending".
+o Example: cancel("SHIP001") → true.
+5. List by Destination:
+o Signature: listByDestination(destination) -> list
+o Returns a list of all shipments to the given destination, sorted by tracking
+ID.
+o Returns an empty list if no shipments match.
+o Example: listByDestination("New York") → [ { trackingId: "SHIP001",
+destination: "New York", status: "Pending", weight: 10.5 } ].
+Requirements
+• Data Structure: Use an efficient structure (e.g., hash map, dictionary) to store
+shipments.
+• Robustness: Handle edge cases:
+o Duplicate tracking IDs in create.
+o Non-existent tracking IDs in get, updateStatus, cancel.
+o Non-positive weight in create.
+o Invalid status values in updateStatus (only "Pending", "InTransit",
+"Delivered" allowed).
+o Empty collections in listByDestination.
+• Efficiency: Optimize operations for O(1) complexity where possible (e.g., create,
+get, updateStatus, cancel). Sorting in listByDestination may be O(n log n).
+• Readability: Follow the chosen language’s conventions (e.g., camelCase for
+JavaScript, PascalCase for C#, snake_case for Python).
+• Modularity: Structure the code clearly, with separate concerns for storage,
+validation, and retrieval.
+Example Usage (Pseudo-code)
+manager = new ShipmentManager()
+manager.create("SHIP001", "New York", 10.5) // returns true
+manager.create("SHIP002", "London", 5.0) // returns true
+manager.create("SHIP001", "Paris", 3.0) // returns false (duplicate ID)
+manager.get("SHIP001") // returns { trackingId: "SHIP001", destination:
+"New York", status: "Pending", weight: 10.5 }
+manager.updateStatus("SHIP001", "InTransit") // returns true
+manager.cancel("SHIP001") // returns false (not Pending)manager.cancel("SHIP002") // returns true
+manager.listByDestination("New York") // returns [ { trackingId: "SHIP001",
+destination: "New York", status: "InTransit", weight: 10.5 } ]
+manager.get("SHIP003") // returns null
+Guidelines for Implementation
+• Tracking ID: Must be a string, unique for each shipment.
+• Destination: A string representing the shipment’s destination.
+• Status: Must be one of "Pending", "InTransit", or "Delivered". Use an enum if
+supported by the language, otherwise validate strings.
+• Weight: A positive floating-point number (> 0).
+• Sorting: In listByDestination, sort shipments by tracking ID (ascending order).
+• Error Handling: Return appropriate boolean or null values for invalid operations;
+no need for explicit exceptions unless natural to the language.
+• Comments: Add brief comments for complex logic (e.g., status validation,
+sorting).
+Submission Notes
+• Specify the language used at the top of your code or in the submission form (e.g.,
+// Language: Python or // Language: C#).
+• Ensure the code is executable in a standard environment for the chosen
+language.
+• If the platform requires a specific format (e.g., a single class or function), adapt
+the implementation to fit while meeting the functional scope.
