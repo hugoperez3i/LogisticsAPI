@@ -37,6 +37,9 @@ class ShipmentManager():
     def _is_valid_status(self, new_status:Status) -> bool:
         return isinstance(new_status, Status)
     
+    def _is_valid_cancellation_target(self, target:Shipment) ->bool:
+        return target.status is Status.PENDING
+
     # CLASS METHODS THAT IMPLEMENT FUNCTIONALITY
     
     def create(self, tracking_id:str, destination:str, weight:float) -> bool:
@@ -87,3 +90,19 @@ class ShipmentManager():
         shipment.status=new_status
         return True
     
+    def cancel(self, tracking_id:str) -> bool:
+        """Delete the shipment with the given tracking ID
+        
+        Tries to delete the shipment with the id. Will return True on deletion, 
+        False if the shipment cannot be deleted, or if any of the given values are invalid.
+        """        
+        
+        shipment = self.get(tracking_id) # Uses get to obtain the shipment to modify
+        if shipment is None: 
+            return False # Exit if no valid shipment was retrieved
+
+        if not self._is_valid_cancellation_target(shipment): # Ensure only shipments with pending status can be deleted
+            return False
+        
+        del self.dict_shipments[tracking_id]
+        return True
