@@ -3,6 +3,8 @@
 from enum import Enum
 from dataclasses import dataclass
 
+# DATA STORAGE CLASSES
+
 class Status(Enum):
     PENDING= "Pending"
     IN_TRANSIT= "InTransit"
