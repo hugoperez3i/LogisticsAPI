@@ -50,3 +50,16 @@ class ShipmentManager():
         self.dict_shipments[tracking_id]=Shipment(tracking_id,destination,Status.PENDING,weight)
         return True
         
+    def get(self, tracking_id:str) -> Shipment | None:
+        """Retrieves a shipment by the given tracking id
+
+        Returns a shipment object correspondign to the given tracking ID,
+        or None if the given ID is invalid or there's no associated shipment
+        """
+        if not self._is_valid_string(tracking_id): # Check for invalid strings
+            return None
+        
+        if not self._is_id_used(tracking_id): # Return None if the ID isn't used
+            return None
+        
+        return self.dict_shipments[tracking_id]
