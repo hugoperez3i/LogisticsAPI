@@ -37,7 +37,7 @@ class ShipmentManager():
     def _is_valid_status(self, new_status:Status) -> bool:
         return isinstance(new_status, Status)
     
-    def _is_valid_cancellation_target(self, target:Shipment) ->bool:
+    def _is_valid_cancellation_target(self, target:Shipment) -> bool:
         return target.status is Status.PENDING
 
     # CLASS METHODS THAT IMPLEMENT FUNCTIONALITY
@@ -106,3 +106,19 @@ class ShipmentManager():
         
         del self.dict_shipments[tracking_id]
         return True
+    
+    def list_by_destination(self, destination:str) -> list[Shipment]:
+        """Returns an ordered list of shipments whose destination matches with the given destination (case insensitive)
+        
+        Will always return a list, even if there are no matches for the given destination, or if the destination is an invalid value.
+        """
+        lst_shipment= list()
+
+        if not self._is_valid_string(destination): # Check for invalid strings
+            return lst_shipment
+        
+        for shipment in self.dict_shipments.values():
+            if shipment.destination.lower() == destination.lower(): # Make the comparison case insensitive
+                lst_shipment.append(shipment)
+
+        return sorted(lst_shipment, key=lambda shipment: shipment.tracking_id)
