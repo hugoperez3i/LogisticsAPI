@@ -23,6 +23,8 @@ class ShipmentManager():
     def __init__(self) -> None:
         self.dict_shipments: dict[str,Shipment] = {}
 
+    # VALIDATION METHODS FOR INTERNAL CHECKS
+
     def _is_valid_string(self, string:str) -> bool:
         return len(string) != 0
     
@@ -31,6 +33,11 @@ class ShipmentManager():
     
     def _is_id_used(self, tracking_id:str) -> bool:
         return tracking_id in self.dict_shipments
+    
+    def _is_valid_status(self, new_status:Status) -> bool:
+        return isinstance(new_status, Status)
+    
+    # CLASS METHODS THAT IMPLEMENT FUNCTIONALITY
     
     def create(self, tracking_id:str, destination:str, weight:float) -> bool:
         """Create a new shipment with the given information
@@ -63,3 +70,20 @@ class ShipmentManager():
             return None
         
         return self.dict_shipments[tracking_id]
+    
+    def update_status(self, tracking_id:str, new_status:Status) -> bool:
+        """Updates the status of a shipment
+        
+        Enforces that the given status is a member of the Status enum.
+        <br>Returns True on successful update of the status, False if any of the given paramenters is invalid
+        """
+        if not self._is_valid_status(new_status): # Enforce status enum usage
+            return False
+        
+        shipment = self.get(tracking_id) # Uses get to obtain the shipment to modify
+        if shipment is None: 
+            return False # Exit if no valid shipment was retrieved
+        
+        shipment.status=new_status
+        return True
+    
