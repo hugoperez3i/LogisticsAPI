@@ -15,3 +15,12 @@ class Shipment():
     destination: str
     status: Status
     weight: float
+
+class ShipmentManager():
+
+    # CONSTRUCTOR FOR THE CLASS
+
+    def __init__(self) -> None:
+        self.dict_shipments: dict[str,Shipment] = {}
+
+    
